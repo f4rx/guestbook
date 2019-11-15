@@ -3,7 +3,7 @@ version: '2'
 services:
 
   guestbookapp:
-    image: nortlite/guestbookapp:latest
+    image: f3ex/guestbookapp:latest
     restart: always
     environment:
       MYSQL_SERVER_ADDRESS: db
