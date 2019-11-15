@@ -143,7 +143,7 @@ apt-get -y install \
 
 apt-get install -y docker-ce docker-ce-cli containerd.io
 
-apt install -y python3-pip python3-setuptools python3-wheel libc6-dev
+apt install -y python3-dev python3-pip python3-setuptools python3-wheel libc6-dev
 
 pip3 install docker-compose
 EOT
