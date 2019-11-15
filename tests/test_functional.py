@@ -27,12 +27,12 @@ def test_index_page_content():
     assert response['result'] == ['Index.']
 
 
-def test_notes_page():
-    response = make_request(f'{ADDR}/notes')
-    assert 'status' in response
-    assert 'message' in response
-    assert 'result' in response
-    assert 'host_name' in response
+# def test_notes_page():
+#     response = make_request(f'{ADDR}/notes')
+#     assert 'status' in response
+#     assert 'message' in response
+#     assert 'result' in response
+#     assert 'host_name' in response
 
 
 def test_notes_page_content():
