@@ -32,7 +32,7 @@ data "openstack_compute_flavor_v2" "flavor_1" {
 ###################################
 data "openstack_images_image_v2" "ubuntu" {
   most_recent = true
-  name        = "Ubuntu 16.04 LTS 64-bit"
+  name        = "Ubuntu 18.04 LTS 64-bit"
 }
 
 ###################################
