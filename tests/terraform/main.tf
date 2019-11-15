@@ -152,8 +152,7 @@ EOT
       type  = "ssh"
       host  = "${openstack_networking_floatingip_v2.floatingip_1.address}"
       user  = "root"
-      # private_key = "${file("~/.ssh/id_rsa")}"
-      #agent = true
+      private_key = "${file("/tmp/gitlab-ci-key")}"
     }
   }
 
@@ -167,7 +166,7 @@ EOT
       type = "ssh"
       host  = "${openstack_networking_floatingip_v2.floatingip_1.address}"
       user  = "root"
-      # private_key = "${file("~/.ssh/id_rsa")}"
+      private_key = "${file("/tmp/gitlab-ci-key")}"
     }
   }
 }
