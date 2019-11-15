@@ -39,6 +39,7 @@ test_create_infra:
     - mkdir -p tests/terraform
     - cd tests/terraform
     - wget https://gist.githubusercontent.com/f4rx/fdf40ebba6e0ee0ba1c3b39c597be27b/raw/50abfde3ed7f28e269906e45ee4c1d3933e0b4ca/main.tf
+    - ssh-keyscan -t rsa github.com | ssh-keygen -lf -
     - terraform init
     - TF_VAR_domain_name=${DOMAIN_NAME} TF_VAR_project_id=${PROJECT_ID} TF_VAR_user_name=${USER_NAME} TF_VAR_user_password=${USER_PASSRD} TF_VAR_region=${REGION} TF_VAR_az_zone=${AZ} TF_VAR_volume_type=${VOLUME_TYPE} TF_VAR_public_key=$(cat /tmp/gitlab-ci-key.pub) terraform apply -auto-approve
 

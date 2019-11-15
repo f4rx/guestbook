@@ -21,7 +21,7 @@ provider "openstack" {
 }
 
 module "app-stand" {
-  source = "https://github.com/f4rx/app-terraform.git?ref=master"
+  source = "git@github.com:f4rx/app-terraform.git/?ref=master"
 
   region                = "${var.region}"
   public_key            = "${var.public_key}"
