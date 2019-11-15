@@ -3,12 +3,12 @@ variables:
   GIT_STRATEGY: FETCH
 
 stages:
-  - lints
-  - build
-  - test_create_infra
+  # - lints
+  # - build
+  # - test_create_infra
   - tests
-  - test_destroy_infra
-  - deploy
+  # - test_destroy_infra
+  # - deploy
 
 lint1:
   stage: lints
@@ -47,7 +47,7 @@ tests:
     - echo $TEST_SERVER
     - scp -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" docker-compose.yaml root@$TEST_SERVER:~/
     - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "docker-compose up -d"
-    - sleep 10
+    # - sleep 10
     - rsync -aP -e "ssh -i /tmp/gitlab-ci-key -o 'UserKnownHostsFile=/dev/null' -o 'StrictHostKeyChecking=no'" ../ root@$TEST_SERVER:~/app/
     - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "apt-get update && apt-get install python3-pip python3-setuptools python3-dev libev-dev locales -y && pip3 install flask bjoern sqlalchemy sqlalchemy_utils pymysql pytest"
     - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "ls -l ~/app/"

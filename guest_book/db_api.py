@@ -15,11 +15,11 @@ from guest_book import config, app, CUR_ADDR
 
 
 Base = declarative_base()
-conn_string = (f'mysql+pymysql://'
-               f'{app.config["DB_USER"]}:'
-               f'{app.config["DB_PASSWORD"]}@'
-               f'{app.config["DB_ADDRESS"]}/'
-               f'{app.config["DB_NAME"]}'
+conn_string = (f'mysql+pymysql://' +
+               f'{app.config["DB_USER"]}:' +
+               f'{app.config["DB_PASSWORD"]}@' +
+               f'{app.config["DB_ADDRESS"]}/' +
+               f'{app.config["DB_NAME"]}' +
                f'?charset=utf8')
 engine = sqlalchemy.create_engine(conn_string, echo=True)
 if not database_exists(engine.url):
