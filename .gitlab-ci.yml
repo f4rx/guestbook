@@ -64,3 +64,4 @@ deploy:
   stage: deploy
   script:
     - echo deploy
+  when: manual
