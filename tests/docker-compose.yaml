@@ -2,22 +2,22 @@ version: '2'
 
 services:
 
-  guestbookapp:
-    image: f3ex/guestbookapp:latest
-    restart: always
-    environment:
-      MYSQL_SERVER_ADDRESS: db
-      MYSQL_USER: guestbook-user
-      MYSQL_PASSWORD: secret-for-guest-book-user
-      MYSQL_DATABASE: guestbookapp
-      APP_ADDRESS: 0.0.0.0
-    ports:
-      - 127.0.0.1:5000:5000
-    networks:
-      network_app:
-        ipv4_address: 10.50.2.10
-    depends_on:
-      - db
+  # guestbookapp:
+  #   image: f3ex/guestbookapp:latest
+  #   restart: always
+  #   environment:
+  #     MYSQL_SERVER_ADDRESS: db
+  #     MYSQL_USER: guestbook-user
+  #     MYSQL_PASSWORD: secret-for-guest-book-user
+  #     MYSQL_DATABASE: guestbookapp
+  #     APP_ADDRESS: 0.0.0.0
+  #   ports:
+  #     - 127.0.0.1:5000:5000
+  #   networks:
+  #     network_app:
+  #       ipv4_address: 10.50.2.10
+  #   depends_on:
+  #     - db
 
   db:
     image: linuxserver/mariadb
@@ -30,6 +30,8 @@ services:
       - MYSQL_DATABASE=guestbookapp
       - MYSQL_USER=guestbook-user
       - MYSQL_PASSWORD=secret-for-guest-book-user
+    ports:
+      - 127.0.0.1:3306:3306
     volumes:
       - db_volume:/config
     restart: unless-stopped
