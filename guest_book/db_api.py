@@ -11,7 +11,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import String, Column, DateTime, Unicode
 from sqlalchemy_utils import database_exists, create_database
 from sqlalchemy.orm import sessionmaker
-from guest_book import config, app
+from guest_book import config, app, CUR_ADDR
 
 
 Base = declarative_base()
@@ -73,7 +73,7 @@ def create_note(request_body: str) -> dict:
                'json format.')
         raise WebServiceError(msg)
     note_id = str(uuid.uuid4()).replace('-', '')
-    rec = Notes(user_name=body['user_name'], server_name=os.uname().nodename,
+    rec = Notes(user_name=body['user_name'], server_name=CUR_ADDR,
                 date_time=time.localtime(), note=body['note'],
                 id=note_id)
     session = Session()
