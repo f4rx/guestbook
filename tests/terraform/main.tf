@@ -124,7 +124,6 @@ resource "openstack_compute_instance_v2" "instance_1" {
   }
 
   provisioner "file" {
-    source      = "${path.module}/scripts/setup_db.sh"
     content = <<-EOT
 add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
