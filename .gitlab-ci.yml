@@ -48,7 +48,7 @@ tests:
     - scp -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" docker-compose.yaml root@$TEST_SERVER:~/
     - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "docker-compose up -d"
     - sleep 15
-    - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "docker-compose exec -T guestbookapp APP_ADDR=127.0.0.1 pytest -v /app"
+    - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "docker-compose exec -e  APP_ADDR=127.0.0.1 -T guestbookapp pytest -v /app"
 
 test_destroy_infra:
   stage: test_destroy_infra
