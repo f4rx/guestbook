@@ -51,8 +51,8 @@ tests:
     - rsync -aP -e "ssh -i /tmp/gitlab-ci-key -o 'UserKnownHostsFile=/dev/null' -o 'StrictHostKeyChecking=no'" ../ root@$TEST_SERVER:~/app/
     - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "apt-get update && apt-get install python3-pip python3-setuptools python3-dev libev-dev locales -y && pip3 install flask bjoern sqlalchemy sqlalchemy_utils pymysql pytest"
     - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "ls -l ~/app/"
-    - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "export MYSQL_SERVER_ADDRESS=127.0.0.1; export MYSQL_USER=guestbook-user; export MYSQL_PASSWORD=secret-for-guest-book-user; export MYSQL_DATABASE=guestbookapp; export APP_ADDRESS=127.0.0.1; /usr/bin/python3 ~/app/"
-
+    - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "export MYSQL_SERVER_ADDRESS=127.0.0.1; export MYSQL_USER=guestbook-user; export MYSQL_PASSWORD=secret-for-guest-book-user; export MYSQL_DATABASE=guestbookapp; export APP_ADDRESS=127.0.0.1; /usr/bin/python3 ~/app/ &"
+    - sleep 5
       #     MYSQL_SERVER_ADDRESS: db
   #     MYSQL_USER: guestbook-user
   #     MYSQL_PASSWORD: secret-for-guest-book-user
