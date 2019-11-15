@@ -43,7 +43,7 @@ tests:
   stage: tests
   script:
     - cd tests/
-    - terraform apply -state=/home/gitlab-runner/terraform.tfstate output server_external_ip
+    - terraform output -state=/home/gitlab-runner/terraform.tfstate  server_external_ip
     - echo SSH and run tests
     # - scp -i /tmp/gitlab-ci-key ../../
 
