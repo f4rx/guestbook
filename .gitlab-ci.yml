@@ -4,10 +4,10 @@ variables:
 
 stages:
   - lints
+  - build
   - test_create_infra
   - tests
   - test_destroy_infra
-  - build
   - deploy
 
 lint1:
@@ -19,6 +19,17 @@ lint2:
   stage: lints
   script:
     - echo lint2
+
+build:
+  only:
+    refs:
+      - master
+      - tags
+  stage: build
+  script:
+    - echo docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+    - echo docker build -t $IMAGE_TAG .
+    - echo docker push $IMAGE_TAG
 
 test_create_infra:
   stage: test_create_infra
@@ -45,17 +56,6 @@ test_destroy_infra:
     - cd tests/terraform
     - destroy
   when: always
-
-build:
-  only:
-    refs:
-      - master
-      - tags
-  stage: build
-  script:
-    - echo docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
-    - echo docker build -t $IMAGE_TAG .
-    - echo docker push $IMAGE_TAG
 
 deploy:
   stage: deploy
