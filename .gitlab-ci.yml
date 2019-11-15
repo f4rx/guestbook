@@ -50,16 +50,6 @@ tests:
     - sleep 5
     - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "docker-compose exec guestbookapp pytest -v /app"
 
-  testing_container:
-    image: nortlite/guestbookapp:latest
-    entrypoint: ["pytest", "-v", "/app"]
-    environment:
-      APP_ADDR: guestbookapp
-    networks:
-      - network_app
-    depends_on:
-      - guestbookapp
-
 test_destroy_infra:
   stage: test_destroy_infra
   script:
