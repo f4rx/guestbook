@@ -1,5 +1,6 @@
 variables:
   IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_BUILD_REF_NAME
+  GIT_STRATEGY: none
 
 stages:
   - lints
