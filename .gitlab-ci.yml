@@ -43,9 +43,9 @@ tests:
   stage: tests
   script:
     - cd tests/
-    - echo SSH and run tests
     - export TEST_SERVER=$(terraform output -state=/home/gitlab-runner/terraform.tfstate  server_external_ip)
-    - scp -i /tmp/gitlab-ci-key docker-compose.yaml -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER:~/
+    - echo $TEST_SERVER
+    - scp -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" docker-compose.yaml root@$TEST_SERVER:~/
     - ssh -i /tmp/gitlab-ci-key docker-compose.yaml -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "docker-compose up -d"
 
 
