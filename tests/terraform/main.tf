@@ -122,6 +122,55 @@ resource "openstack_compute_instance_v2" "instance_1" {
   vendor_options {
     ignore_resize_confirmation = true
   }
+
+  provisioner "file" {
+    source      = "${path.module}/scripts/setup_db.sh"
+    content = <<-EOT
+add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+
+apt-get update
+
+apt-get -y install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg-agent \
+    software-properties-common
+
+apt-get install -y docker-ce docker-ce-cli containerd.io
+
+apt install -y python3-pip python3-setuptools python3-wheel
+
+pip3 install docker-compose
+EOT
+    destination = "/tmp/setup_docker.sh"
+    connection {
+      type  = "ssh"
+      host  = "${openstack_networking_floatingip_v2.floatingip_1.address}"
+      user  = "root"
+      # private_key = "${file("~/.ssh/id_rsa")}"
+      #agent = true
+    }
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "chmod +x /tmp/setup_docker.sh",
+      "/tmp/setup_docker.sh",
+    ]
+
+    connection {
+      type = "ssh"
+      host  = "${openstack_networking_floatingip_v2.floatingip_1.address}"
+      user  = "root"
+      # private_key = "${file("~/.ssh/id_rsa")}"
+    }
+  }
 }
 
 ###################################
