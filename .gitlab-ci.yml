@@ -20,13 +20,14 @@ stages:
 #   script:
 #     - echo lint2
 
-# build:
-#   only:
-#     refs:
-#       - master
-#       - tags
-#   stage: build
-#   script:
+build:
+  only:
+    refs:
+      - master
+      - tags
+  stage: build
+  script:
+    - docker build -t f3ex/guestbookapp -f Dockerfile_app  .
 #     - echo docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
 #     - echo docker build -t $IMAGE_TAG .
 #     - echo docker push $IMAGE_TAG
@@ -42,23 +43,29 @@ test_create_infra:
 tests:
   stage: tests
   script:
-    - cd tests/
+    # - cd tests/
     - export TEST_SERVER=$(terraform output -state=/home/gitlab-runner/terraform.tfstate  server_external_ip)
     - echo $TEST_SERVER
-    - scp -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" docker-compose.yaml root@$TEST_SERVER:~/
-    - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "docker-compose up -d"
-    # - sleep 10
-    - rsync -aP -e "ssh -i /tmp/gitlab-ci-key -o 'UserKnownHostsFile=/dev/null' -o 'StrictHostKeyChecking=no'" ../ root@$TEST_SERVER:~/app/
-    - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "apt-get update && apt-get install python3-pip python3-setuptools python3-dev libev-dev locales -y && pip3 install flask bjoern sqlalchemy sqlalchemy_utils pymysql pytest"
-    - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "ls -l ~/app/"
-    - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "sh -c 'export MYSQL_SERVER_ADDRESS=127.0.0.1; export MYSQL_USER=guestbook-user; export MYSQL_PASSWORD=secret-for-guest-book-user; export MYSQL_DATABASE=guestbookapp; export APP_ADDRESS=127.0.0.1; nohup /usr/bin/python3 ~/app/ &'"
+    - docker image save f3ex/guestbookapp:latest -o guestbookapp_image
+    - rsync -aP -e "ssh -i /tmp/gitlab-ci-key -o 'UserKnownHostsFile=/dev/null' -o 'StrictHostKeyChecking=no'" ./ root@$TEST_SERVER:~/app/
+    # - scp -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" docker-compose.yaml root@$TEST_SERVER:~/
+    - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "docker import guestbookapp_image"
+    - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "cd tests && docker-compose up -d"
     - sleep 5
-      #     MYSQL_SERVER_ADDRESS: db
-  #     MYSQL_USER: guestbook-user
-  #     MYSQL_PASSWORD: secret-for-guest-book-user
-  #     MYSQL_DATABASE: guestbookapp
-  #     APP_ADDRESS: 0.0.0.0
-    - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "APP_ADDR=127.0.0.1 pytest -v ~/app"
+    - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "cd tests && docker-compose exec -e APP_ADDR=127.0.0.1 guestbookapp pytest -v /app"
+
+
+  #   - rsync -aP -e "ssh -i /tmp/gitlab-ci-key -o 'UserKnownHostsFile=/dev/null' -o 'StrictHostKeyChecking=no'" ../ root@$TEST_SERVER:~/app/
+  #   - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "apt-get update && apt-get install python3-pip python3-setuptools python3-dev libev-dev locales -y && pip3 install flask bjoern sqlalchemy sqlalchemy_utils pymysql pytest"
+  #   - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "ls -l ~/app/"
+  #   - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "sh -c 'export MYSQL_SERVER_ADDRESS=127.0.0.1; export MYSQL_USER=guestbook-user; export MYSQL_PASSWORD=secret-for-guest-book-user; export MYSQL_DATABASE=guestbookapp; export APP_ADDRESS=127.0.0.1; nohup /usr/bin/python3 ~/app/ &'"
+  #   - sleep 5
+  #     #     MYSQL_SERVER_ADDRESS: db
+  # #     MYSQL_USER: guestbook-user
+  # #     MYSQL_PASSWORD: secret-for-guest-book-user
+  # #     MYSQL_DATABASE: guestbookapp
+  # #     APP_ADDRESS: 0.0.0.0
+  #   - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "APP_ADDR=127.0.0.1 pytest -v ~/app"
 
 test_destroy_infra:
   stage: test_destroy_infra
@@ -76,4 +83,3 @@ deploy:
     - echo deploy
   when: manual
 
-  
