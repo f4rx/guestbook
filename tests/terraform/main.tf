@@ -143,9 +143,7 @@ apt-get -y install \
 
 apt-get install -y docker-ce docker-ce-cli containerd.io
 
-apt install -y python3-dev python3-pip python3-setuptools python3-wheel libc6-dev libffi-dev openssl-dev
-
-pip3 install docker-compose
+curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 EOT
     destination = "/tmp/setup_docker.sh"
     connection {
