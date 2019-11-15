@@ -1,0 +1,49 @@
+version: '2'
+
+services:
+
+  guestbookapp:
+    image: guestbookapp
+    restart: always
+    environment:
+      MYSQL_SERVER_ADDRESS: db
+      MYSQL_USER: guestbook-user
+      MYSQL_PASSWORD: secret-for-guest-book-user
+      MYSQL_DATABASE: guestbookapp
+      APP_ADDRESS: 0.0.0.0
+    ports:
+      - 127.0.0.1:5000:5000
+      - 80:80
+    networks:
+      network_app:
+        ipv4_address: 10.50.2.10
+    depends_on:
+      - db
+
+  db:
+    image: linuxserver/mariadb
+    container_name: db
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - MYSQL_ROOT_PASSWORD=mysql-root-password-1
+      - TZ=Europe/Moscow
+      - MYSQL_DATABASE=guestbookapp
+      - MYSQL_USER=guestbook-user
+      - MYSQL_PASSWORD=secret-for-guest-book-user
+    volumes:
+      - db_volume:/config
+    restart: unless-stopped
+    networks:
+      - network_app
+
+volumes:
+  db_volume:
+
+networks:
+  network_app:
+    ipam:
+      driver: default
+      config:
+      - subnet: 10.50.2.0/24
+        gateway: 10.50.2.1

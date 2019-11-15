@@ -1,0 +1,16 @@
+<h2 class="t-h4">Список сообщений</h2>
+<div
+  class="comment l-mt-xl"
+  *ngFor="let item of api.comments$ | async">
+  <div class="l-flex l-flex-left l-flex-middle l-mb-s">
+                <span class="l-pr-xs s-bdr-ui-03 l-mr-xs">
+                  <b>{{ item['user_name'] }}</b>
+                </span>
+    <span class="l-pr-xs s-bdr-ui-03 l-mr-xs">{{ item['date_time'] }}</span>
+    <a class="l-pr-xs s-bdr-ui-03 l-mr-xs" [routerLink]="getHref(item.id)">{{ item['id'] }}</a>
+    <span>Хост: {{ item['server_name'] }}</span>
+  </div>
+  <div class="t-p1 l-p-s s-bg-ui-01">
+    <p class="comment-text">{{ item['note'] }}</p>
+  </div>
+</div>

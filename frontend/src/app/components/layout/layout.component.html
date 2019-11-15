@@ -1,0 +1,30 @@
+<div class="app-loader" *ngIf="api.isLoading && !api.isError">
+  <div class="bx--loading">
+    <svg class="bx--loading__svg" viewBox="-75 -75 150 150">
+      <title>Loading</title>
+      <circle class="bx--loading__stroke" cx="0" cy="0" r="37.5"></circle>
+    </svg>
+  </div>
+</div>
+<div class="layout" *ngIf="!api.isLoading && !api.isError">
+  <ibm-header [name]="api.hostName" brand="Сервер:" href="/">
+  </ibm-header>
+  <div class="container l-pv-l">
+    <div class="l-p-l l-mb-l" [style.background]="getColor(api.hostName)">
+      <p>Сервер: {{ api.hostName }}</p>
+    </div>
+    <div class="bx--grid l-pl-0 l-pr-0">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+<div class="container" *ngIf="api.isError">
+  <ibm-notification
+    [notificationObj]="{
+      type: 'error',
+      title: api.isError,
+      message: '',
+      showClose: false,
+      lowContrast: true}">
+  </ibm-notification>
+</div>

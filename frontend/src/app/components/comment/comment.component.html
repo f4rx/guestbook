@@ -1,0 +1,33 @@
+<div class="app-loader" *ngIf="isLoading && !isError">
+  <div class="bx--loading">
+    <svg class="bx--loading__svg" viewBox="-75 -75 150 150">
+      <title>Loading</title>
+      <circle class="bx--loading__stroke" cx="0" cy="0" r="37.5"></circle>
+    </svg>
+  </div>
+</div>
+<div *ngIf="!isLoading && !isError">
+  <div class="comment-info l-mt-xl l-p-s s-bg-ui-01">
+    <h4>{{ comment['id'] }}</h4>
+    <div class="l-flex l-flex-left l-flex-middle l-mb-s l-mt-s">
+        <span class="l-pr-xs s-bdr-ui-03 l-mr-xs">
+          <b>{{ comment['user_name'] }}</b>
+        </span>
+      <span class="l-pr-xs l-mr-xs">{{ comment['date_time'] }}</span>
+    </div>
+    <div class="l-mb-s">Хост: {{ comment['server_name'] }}</div>
+    <div class="l-mb-xs">
+      <p class="comment-text">{{ comment['note'] }}</p>
+    </div>
+  </div>
+</div>
+<div class="container" *ngIf="isError">
+  <ibm-notification
+    [notificationObj]="{
+      type: 'error',
+      title: isError,
+      message: '',
+      showClose: false,
+      lowContrast: true}">
+  </ibm-notification>
+</div>

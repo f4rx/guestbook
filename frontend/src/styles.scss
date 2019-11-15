@@ -1,0 +1,556 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~carbon-components/scss/globals/scss/styles.scss";
+@import '~carbon-components/scss/globals/grid/grid';
+
+$sui-viewports: ('md', 'lg', 'xlg', 'max');
+$hover-duration: 70ms;
+
+$sui-colors: (
+  // Theme-specific colors
+  'interactive-01': $interactive-01,
+  'interactive-02': $interactive-02,
+  'interactive-03': $interactive-03,
+  'interactive-04': $interactive-04,
+  'ui-background': $ui-background,
+  'ui-01': $ui-01,
+  'ui-02': $ui-02,
+  'ui-03': $ui-03,
+  'ui-04': $ui-04,
+  'ui-05': $ui-05,
+  'text-01': $text-01,
+  'text-02': $text-02,
+  'text-03': $text-03,
+  'text-04': $text-04,
+  'text-05': $text-05,
+  'icon-01': $icon-01,
+  'icon-02': $icon-02,
+  'icon-03': $icon-03,
+  'link-01': $link-01,
+  'field-01': $field-01,
+  'field-02': $field-02,
+  'inverse-01': $inverse-01,
+  'inverse-02': $inverse-02,
+  'support-01': $support-01,
+  'support-02': $support-02,
+  'support-03': $support-03,
+  'support-04': $support-04,
+  'inverse-support-01': $inverse-support-01,
+  'inverse-support-02': $inverse-support-02,
+  'inverse-support-03': $inverse-support-03,
+  'inverse-support-04': $inverse-support-04,
+  'overlay-01': $overlay-01,
+  'focus': $focus,
+  'hover-primary': $hover-primary,
+  'active-primary': $active-primary,
+  'hover-primary-text': $hover-primary-text,
+  'hover-secondary': $hover-secondary,
+  'active-secondary': $active-secondary,
+  'hover-tertiary': $hover-tertiary,
+  'active-tertiary': $active-tertiary,
+  'hover-ui': $hover-ui,
+  'active-ui': $active-ui,
+  'selected-ui': $selected-ui,
+  'hover-selected-ui': $hover-selected-ui,
+  'hover-danger': $hover-danger,
+  'active-danger': $active-danger,
+  'hover-row': $hover-row,
+  'visited-link': $visited-link,
+  'disabled-01': $disabled-01,
+  'disabled-02': $disabled-02,
+  'disabled-03': $disabled-03,
+  'highlight': $highlight,
+  'skeleton-01': $skeleton-01,
+  'skeleton-02': $skeleton-02,
+  'brand-01': $brand-01,
+  'brand-02': $brand-02,
+  'brand-03': $brand-03,
+  'active-01': $active-01,
+  'hover-field': $hover-field,
+
+  // Same for every theme
+  'white': $carbon--white-0,
+  'gray-10': $carbon--gray-10,
+  'gray-20': $carbon--gray-20,
+  'gray-30': $carbon--gray-30,
+  'gray-40': $carbon--gray-40,
+  'gray-50': $carbon--gray-50,
+  'gray-60': $carbon--gray-60,
+  'gray-70': $carbon--gray-70,
+  'gray-80': $carbon--gray-80,
+  'gray-90': $carbon--gray-90,
+  'gray-100': $carbon--gray-100,
+  'black': $carbon--black-100,
+  'transparent': transparent
+);
+
+$sui-spacing-values: (
+  '3xs': $spacing-01,
+  'xxs': $spacing-02,
+  'xs': $spacing-03,
+  's': $spacing-04,
+  'm': $spacing-05,
+  'l': $spacing-06,
+  'xl': $spacing-07,
+  'xxl': $spacing-08,
+  '3xl': $spacing-09,
+  '0': 0
+);
+
+$sui-layout-values: (
+  'xxs': $layout-01,
+  'xs': $layout-02,
+  's': $layout-03,
+  'm': $layout-04,
+  'l': $layout-05,
+  'xl': $layout-06,
+  'xxl': $layout-07,
+  '3xl': $layout-07 * 1.5,
+  '4xl': $layout-07 * 2,
+  '5xl': $layout-07 * 3,
+  '0': 0,
+  'f': 100%
+);
+
+$sui-radiuses: (
+  'f': 50%,
+  'm': 5px,
+  '0': 0
+);
+
+@mixin helpers($postfix) {
+
+  // Typography
+
+  .t-h5#{$postfix} {
+    @include carbon--type-style(productive-heading-05);
+  }
+
+  .t-h4#{$postfix} {
+    @include carbon--type-style(productive-heading-04);
+  }
+
+  .t-h3#{$postfix} {
+    @include carbon--type-style(productive-heading-03);
+  }
+
+  .t-h2#{$postfix} {
+    @include carbon--type-style(heading-02);
+  }
+
+  .t-h1#{$postfix} {
+    @include carbon--type-style(heading-01);
+  }
+
+  .t-p4#{$postfix} {
+    @include carbon--type-style(body-long-02);
+  }
+
+  .t-p3#{$postfix} {
+    @include carbon--type-style(body-short-02);
+  }
+
+  .t-p2#{$postfix} {
+    @include carbon--type-style(body-long-01);
+  }
+
+  .t-p1#{$postfix} {
+    @include carbon--type-style(body-short-01);
+  }
+
+  .t-code1#{$postfix} {
+    @include carbon--type-style(code-01);
+  }
+
+  .t-code2#{$postfix} {
+    @include carbon--type-style(code-02);
+  }
+
+  .t-label#{$postfix} {
+    @include carbon--type-style(label-01);
+  }
+
+  .t-helper#{$postfix} {
+    @include carbon--type-style(helper-text-01);
+  }
+
+  .t-left#{$postfix} {
+    text-align: left !important;
+  }
+
+  .t-center#{$postfix} {
+    text-align: center !important;
+  }
+
+  .t-right#{$postfix} {
+    text-align: right !important;
+  }
+
+  .t-top#{$postfix} {
+    vertical-align: top !important;
+  }
+
+  .t-middle#{$postfix} {
+    vertical-align: middle !important;
+  }
+
+  .t-bottom#{$postfix} {
+    vertical-align: bottom !important;
+  }
+
+  .t-ellipsis#{$postfix} {
+    text-overflow: ellipsis !important;
+  }
+
+  .t-clip#{$postfix} {
+    text-overflow: clip !important;
+  }
+
+  .t-nowrap#{$postfix} {
+    white-space: nowrap !important;
+  }
+
+  .t-wrap#{$postfix} {
+    white-space: normal !important;
+  }
+
+  // Skins
+
+  @each $name, $color in $sui-colors {
+    $val: '-' + $name;
+
+    .s-bg#{$val}#{$postfix} {
+      background: $color !important;
+    }
+
+    .s-bg-h#{$val}#{$postfix} {
+      transition: background-color $hover-duration !important;
+
+      &:hover {
+        background: $color !important;
+      }
+    }
+
+    .s-f#{$val}#{$postfix} {
+      color: $color !important;
+      fill: $color !important;
+    }
+
+    .s-f-h#{$val}#{$postfix} {
+      transition: color $hover-duration, fill $hover-duration !important;
+
+      &:hover {
+        color: $color !important;
+        fill: $color !important;
+      }
+    }
+
+    .s-bd#{$val}#{$postfix} {
+      border: 1px solid !important;
+      border-color: $color !important; // split to prevent custom properties minification bug
+    }
+
+    .s-bdt#{$val}#{$postfix} {
+      border-top: 1px solid !important;
+      border-top-color: $color !important;
+    }
+
+    .s-bdr#{$val}#{$postfix} {
+      border-right: 1px solid !important;
+      border-right-color: $color !important;
+    }
+
+    .s-bdb#{$val}#{$postfix} {
+      border-bottom: 1px solid !important;
+      border-bottom-color: $color !important;
+    }
+
+    .s-bdl#{$val}#{$postfix} {
+      border-left: 1px solid !important;
+      border-left-color: $color !important;
+    }
+  }
+
+  .s-bd-0#{$postfix} {
+    border: none !important;
+  }
+
+  .s-bdt-0#{$postfix} {
+    border-top: none !important;
+  }
+
+  .s-bdr-0#{$postfix} {
+    border-right: none !important;
+  }
+
+  .s-bdb-0#{$postfix} {
+    border-bottom: none !important;
+  }
+
+  .s-bdl-0#{$postfix} {
+    border-left: none !important;
+  }
+
+  @each $name, $value in $sui-radiuses {
+    .s-rad-#{$name}#{$postfix} {
+      border-radius: $value !important;
+    }
+  }
+
+  .s-focus-outline#{$postfix}:focus {
+    @include focus-outline('outline');
+  }
+
+  .s-focus-reset#{$postfix}:focus {
+    @include focus-outline('reset');
+  }
+
+  // Layout
+
+  @each $name, $value in $sui-spacing-values {
+    $val: '-' + $name;
+
+    .l-m#{$val}#{$postfix} {
+      margin: $value !important;
+    }
+
+    .l-mt#{$val}#{$postfix} {
+      margin-top: $value !important;
+    }
+
+    .l-mr#{$val}#{$postfix} {
+      margin-right: $value !important;
+    }
+
+    .l-mb#{$val}#{$postfix} {
+      margin-bottom: $value !important;
+    }
+
+    .l-ml#{$val}#{$postfix} {
+      margin-left: $value !important;
+    }
+
+    .l-mv#{$val}#{$postfix} {
+      margin-top: $value !important;
+      margin-bottom: $value !important;
+    }
+
+    .l-mh#{$val}#{$postfix} {
+      margin-left: $value !important;
+      margin-right: $value !important;
+    }
+
+    .l-p#{$val}#{$postfix} {
+      padding: $value !important;
+    }
+
+    .l-pt#{$val}#{$postfix} {
+      padding-top: $value !important;
+    }
+
+    .l-pr#{$val}#{$postfix} {
+      padding-right: $value !important;
+    }
+
+    .l-pb#{$val}#{$postfix} {
+      padding-bottom: $value !important;
+    }
+
+    .l-pl#{$val}#{$postfix} {
+      padding-left: $value !important;
+    }
+
+    .l-pv#{$val}#{$postfix} {
+      padding-top: $value !important;
+      padding-bottom: $value !important;
+    }
+
+    .l-ph#{$val}#{$postfix} {
+      padding-left: $value !important;
+      padding-right: $value !important;
+    }
+
+    .l-stack#{$val}#{$postfix} {
+      display: flex !important;
+      flex-direction: column !important;
+
+      & > * + * {
+        margin-top: $value !important;
+        margin-left: 0 !important;
+      }
+    }
+
+    .l-line#{$val}#{$postfix} {
+      display: flex !important;
+      flex-direction: row !important;
+
+      & > * + * {
+        margin-left: $value !important;
+        margin-top: 0 !important;
+      }
+    }
+  }
+
+  @each $name, $value in $sui-layout-values {
+    $val: '-' + $name;
+
+    .l-w#{$val}#{$postfix} {
+      width: $value !important;
+    }
+
+    .l-maw#{$val}#{$postfix} {
+      max-width: $value !important;
+    }
+
+    .l-miw#{$val}#{$postfix} {
+      min-width: $value !important;
+    }
+
+    .l-h#{$val}#{$postfix} {
+      height: $value !important;
+    }
+
+    .l-mih#{$val}#{$postfix} {
+      min-height: $value !important;
+    }
+  }
+
+  .l-flex#{$postfix} {
+    display: flex !important;
+  }
+
+  .l-block#{$postfix} {
+    display: block !important;
+  }
+
+  .l-inline#{$postfix} {
+    display: inline !important;
+  }
+
+  .l-inline-block#{$postfix} {
+    display: inline-block !important;
+  }
+
+  .l-none#{$postfix} {
+    display: none !important;
+  }
+
+  .l-flex-wrap#{$postfix} {
+    flex-wrap: wrap !important;
+  }
+
+  .l-flex-nowrap#{$postfix} {
+    flex-wrap: nowrap !important;
+  }
+
+  .l-flex-left#{$postfix} {
+    justify-content: flex-start !important;
+  }
+
+  .l-flex-center#{$postfix} {
+    justify-content: center !important;
+  }
+
+  .l-flex-right#{$postfix} {
+    justify-content: flex-end !important;
+  }
+
+  .l-flex-between#{$postfix} {
+    justify-content: space-between !important;
+  }
+
+  .l-flex-top#{$postfix} {
+    align-items: flex-start !important;
+  }
+
+  .l-flex-middle#{$postfix} {
+    align-items: center
+  }
+
+  .l-flex-bottom#{$postfix} {
+    align-items: flex-end !important;
+  }
+
+  .l-flex-stretch#{$postfix} {
+    align-items: stretch !important;
+  }
+
+  .l-flex-baseline#{$postfix} {
+    align-items: baseline !important;
+  }
+
+  .l-flex-row#{$postfix} {
+    flex-direction: row !important;
+  }
+
+  .l-flex-column#{$postfix} {
+    flex-direction: column !important;
+  }
+
+  .l-flex-shrink#{$postfix} {
+    flex-shrink: 1 !important;
+  }
+
+  .l-flex-noshrink#{$postfix} {
+    flex-shrink: 0 !important;
+  }
+
+  .l-flex-grow#{$postfix} {
+    flex-grow: 1 !important;
+  }
+
+  .l-flex-nogrow#{$postfix} {
+    flex-grow: 0 !important;
+  }
+
+  .l-ovh#{$postfix} {
+    overflow: hidden !important;
+  }
+
+  .l-ovv#{$postfix} {
+    overflow: visible !important;
+  }
+
+  .l-ova#{$postfix} {
+    overflow: auto !important;
+  }
+}
+
+@include helpers('');
+
+@each $vp in $sui-viewports {
+  @include carbon--breakpoint-up($vp) {
+    @include helpers('-' + $vp);
+  }
+}
+.comments-wrap {
+  position: relative;
+}
+.app-loader {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  -webkit-transform: translate(-50%);
+  -moz-transform: translate(-50%);
+  -ms-transform: translate(-50%);
+  -o-transform: translate(-50%);
+  transform: translate(-50%);
+}
+b {
+  font-weight: bold;
+}
+.g90 {
+  body {
+    background: rgb(38, 38, 38);
+    color: white;
+  }
+  .s-bg-ui-01 {
+    background: rgb(224, 224, 224);
+  }
+  .bx--label {
+    color: white;
+  }
+}
+.comment-text,
+.comment-info {
+  color: #161616 !important;
+}

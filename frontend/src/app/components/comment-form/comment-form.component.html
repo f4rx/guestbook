@@ -1,0 +1,36 @@
+<form novalidate [formGroup]="commentForm" class="comment-form">
+  <h2 class="t-h4 l-mb-l">Комментарий</h2>
+  <ibm-label
+    class="l-mb-s"
+    [invalid]="controlIsInvalid('name')"
+    [invalidText]="invalidText('name')"> Имя:
+    <input
+      ibmText
+      formControlName="name"
+      placeholder="">
+  </ibm-label>
+  <ibm-label
+    class="l-mb-xl"
+    [invalid]="controlIsInvalid('comment')"
+    [invalidText]="invalidText('comment')"> Сообщение:
+    <textarea
+      ibmTextArea
+      formControlName="comment"
+      placeholder=""></textarea>
+  </ibm-label>
+  <ibm-notification
+    *ngIf="formError"
+    [notificationObj]="{
+              type: 'error',
+              title: formError,
+              message: '',
+              showClose: false,
+              lowContrast: true}">
+  </ibm-notification>
+  <button
+    ibmButton="primary"
+    type="submit"
+    [skeleton]="isSend"
+    (click)="submit()">Отправить
+  </button>
+</form>
