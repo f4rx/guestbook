@@ -23,7 +23,8 @@ lint2:
 test_create_infra:
   stage: test_create_infra
   script:
-    - yes y | ssh-keygen -b 2048 -t rsa -f /tmp/gitlab-ci-key -C gitlab-ci@gitlab -q -N ""
+    - rm -rf /tmp/gitlab-ci-key*
+    - ssh-keygen -b 2048 -t rsa -f /tmp/gitlab-ci-key -C gitlab-ci@gitlab -q -N ""
     - mkdir -p tests/terraform
     - cd tests/terraform
     - wget https://gist.githubusercontent.com/f4rx/fdf40ebba6e0ee0ba1c3b39c597be27b/raw/50abfde3ed7f28e269906e45ee4c1d3933e0b4ca/main.tf
