@@ -26,7 +26,7 @@ test_create_infra:
     - ssh-keygen -b 2048 -t rsa -f /tmp/gitlab-ci-key -C gitlab-ci@gitlab -q -N ""
     - mkdir -p tests/terraform
     - cd tests/terraform
-    -|
+    - |
       cat > main.tf << EOF
       variable "domain_name" {}
 variable "project_id" {}
