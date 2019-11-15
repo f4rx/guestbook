@@ -58,7 +58,7 @@ tests:
   #     MYSQL_PASSWORD: secret-for-guest-book-user
   #     MYSQL_DATABASE: guestbookapp
   #     APP_ADDRESS: 0.0.0.0
-    - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "pytest -v ~/app"
+    - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "APP_ADDR=127.0.0.1 pytest -v ~/app"
 
 test_destroy_infra:
   stage: test_destroy_infra
