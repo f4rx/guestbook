@@ -27,7 +27,7 @@ build:
       - tags
   stage: build
   script:
-    - sudo docker build -t f3ex/guestbookapp -f Dockerfile_app  .
+    - docker build -t f3ex/guestbookapp -f Dockerfile_app  .
 #     - echo docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
 #     - echo docker build -t $IMAGE_TAG .
 #     - echo docker push $IMAGE_TAG
