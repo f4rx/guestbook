@@ -49,10 +49,10 @@ tests:
     - docker image save f3ex/guestbookapp:latest -o guestbookapp_image
     - rsync -aP -e "ssh -i /tmp/gitlab-ci-key -o 'UserKnownHostsFile=/dev/null' -o 'StrictHostKeyChecking=no'" ./ root@$TEST_SERVER:~/app/
     # - scp -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" docker-compose.yaml root@$TEST_SERVER:~/
-    - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "docker import guestbookapp_image"
-    - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "cd tests && docker-compose up -d"
+    - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "docker import ~/app/guestbookapp_image"
+    - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "cd ~/app/tests && docker-compose up -d"
     - sleep 5
-    - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "cd tests && docker-compose exec -e APP_ADDR=127.0.0.1 guestbookapp pytest -v /app"
+    - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "cd ~/app/tests && docker-compose exec -e APP_ADDR=127.0.0.1 guestbookapp pytest -v /app"
 
 
   #   - rsync -aP -e "ssh -i /tmp/gitlab-ci-key -o 'UserKnownHostsFile=/dev/null' -o 'StrictHostKeyChecking=no'" ../ root@$TEST_SERVER:~/app/
@@ -67,15 +67,15 @@ tests:
   # #     APP_ADDRESS: 0.0.0.0
   #   - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "APP_ADDR=127.0.0.1 pytest -v ~/app"
 
-test_destroy_infra:
-  stage: test_destroy_infra
-  script:
-    - cd tests/terraform
-    - ls -la
-    - terraform init
-    - TF_VAR_domain_name=${DOMAIN_NAME} TF_VAR_project_id=${PROJECT_ID} TF_VAR_user_name=${USER_NAME} TF_VAR_user_password=${USER_PASSWORD} TF_VAR_region=${REGION} TF_VAR_az_zone=${AZ} TF_VAR_volume_type=${VOLUME_TYPE} TF_VAR_public_key=$(cat /tmp/gitlab-ci-key.pub) terraform destroy -state=/home/gitlab-runner/terraform.tfstate -auto-approve
-    - ls -l
-  when: always
+# test_destroy_infra:
+#   stage: test_destroy_infra
+#   script:
+#     - cd tests/terraform
+#     - ls -la
+#     - terraform init
+#     - TF_VAR_domain_name=${DOMAIN_NAME} TF_VAR_project_id=${PROJECT_ID} TF_VAR_user_name=${USER_NAME} TF_VAR_user_password=${USER_PASSWORD} TF_VAR_region=${REGION} TF_VAR_az_zone=${AZ} TF_VAR_volume_type=${VOLUME_TYPE} TF_VAR_public_key=$(cat /tmp/gitlab-ci-key.pub) terraform destroy -state=/home/gitlab-runner/terraform.tfstate -auto-approve
+#     - ls -l
+#   when: always
 
 deploy:
   stage: deploy
