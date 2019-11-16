@@ -7,7 +7,7 @@ variable "az_zone" {}
 variable "volume_type" {}
 variable "public_key" {}
 variable "hdd_size" {
-  default = "5"
+  default = "10"
 }
 
 
