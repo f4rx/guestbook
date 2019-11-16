@@ -43,39 +43,24 @@ test_create_infra:
 tests:
   stage: tests
   script:
-    # - cd tests/
     - export TEST_SERVER=$(terraform output -state=/home/gitlab-runner/terraform.tfstate  server_external_ip)
     - echo $TEST_SERVER
     - docker image save f3ex/guestbookapp:latest -o guestbookapp_image
     - rsync -aP -e "ssh -i /tmp/gitlab-ci-key -o 'UserKnownHostsFile=/dev/null' -o 'StrictHostKeyChecking=no'" ./ root@$TEST_SERVER:~/app/
-    # - scp -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" docker-compose.yaml root@$TEST_SERVER:~/
     - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "docker image load -i ~/app/guestbookapp_image"
     - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "cd ~/app/tests && docker-compose up -d"
     - sleep 5
     - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "cd ~/app/tests && docker-compose exec -T -e APP_ADDR=127.0.0.1 guestbookapp pytest -v /app"
 
-
-  #   - rsync -aP -e "ssh -i /tmp/gitlab-ci-key -o 'UserKnownHostsFile=/dev/null' -o 'StrictHostKeyChecking=no'" ../ root@$TEST_SERVER:~/app/
-  #   - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "apt-get update && apt-get install python3-pip python3-setuptools python3-dev libev-dev locales -y && pip3 install flask bjoern sqlalchemy sqlalchemy_utils pymysql pytest"
-  #   - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "ls -l ~/app/"
-  #   - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "sh -c 'export MYSQL_SERVER_ADDRESS=127.0.0.1; export MYSQL_USER=guestbook-user; export MYSQL_PASSWORD=secret-for-guest-book-user; export MYSQL_DATABASE=guestbookapp; export APP_ADDRESS=127.0.0.1; nohup /usr/bin/python3 ~/app/ &'"
-  #   - sleep 5
-  #     #     MYSQL_SERVER_ADDRESS: db
-  # #     MYSQL_USER: guestbook-user
-  # #     MYSQL_PASSWORD: secret-for-guest-book-user
-  # #     MYSQL_DATABASE: guestbookapp
-  # #     APP_ADDRESS: 0.0.0.0
-  #   - ssh -i /tmp/gitlab-ci-key -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@$TEST_SERVER -T "APP_ADDR=127.0.0.1 pytest -v ~/app"
-
-# test_destroy_infra:
-#   stage: test_destroy_infra
-#   script:
-#     - cd tests/terraform
-#     - ls -la
-#     - terraform init
-#     - TF_VAR_domain_name=${DOMAIN_NAME} TF_VAR_project_id=${PROJECT_ID} TF_VAR_user_name=${USER_NAME} TF_VAR_user_password=${USER_PASSWORD} TF_VAR_region=${REGION} TF_VAR_az_zone=${AZ} TF_VAR_volume_type=${VOLUME_TYPE} TF_VAR_public_key=$(cat /tmp/gitlab-ci-key.pub) terraform destroy -state=/home/gitlab-runner/terraform.tfstate -auto-approve
-#     - ls -l
-#   when: always
+test_destroy_infra:
+  stage: test_destroy_infra
+  script:
+    - cd tests/terraform
+    - ls -la
+    - terraform init
+    - TF_VAR_domain_name=${DOMAIN_NAME} TF_VAR_project_id=${PROJECT_ID} TF_VAR_user_name=${USER_NAME} TF_VAR_user_password=${USER_PASSWORD} TF_VAR_region=${REGION} TF_VAR_az_zone=${AZ} TF_VAR_volume_type=${VOLUME_TYPE} TF_VAR_public_key=$(cat /tmp/gitlab-ci-key.pub) terraform destroy -state=/home/gitlab-runner/terraform.tfstate -auto-approve
+    - ls -l
+  when: always
 
 deploy:
   stage: deploy
