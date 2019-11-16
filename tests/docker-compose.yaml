@@ -1,4 +1,4 @@
-version: '2'
+version: '3.7'
 
 services:
 
@@ -43,7 +43,7 @@ volumes:
 
 networks:
   network_app:
-    ipam:
-      driver: default
-      config:
-      - subnet: 10.50.2.0/24
+    # ipam:
+    #   driver: default
+    #   config:
+    #   - subnet: 10.50.2.0/24
