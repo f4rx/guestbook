@@ -10,15 +10,15 @@ stages:
   - test_destroy_infra
   - deploy
 
-# lint1:
-#   stage: lints
-#   script:
-#     - echo lint1
+lint1:
+  stage: lints
+  script:
+    - echo lint1
 
-# lint2:
-#   stage: lints
-#   script:
-#     - echo lint2
+lint2:
+  stage: lints
+  script:
+    - echo lint2
 
 build:
   only:
