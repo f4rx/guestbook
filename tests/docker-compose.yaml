@@ -15,6 +15,7 @@ services:
       - 127.0.0.1:5000:5000
     networks:
       network_app:
+        # ipv4_address: 10.50.2.10
     depends_on:
       - db
 
@@ -29,6 +30,8 @@ services:
       - MYSQL_DATABASE=guestbookapp
       - MYSQL_USER=guestbook-user
       - MYSQL_PASSWORD=secret-for-guest-book-user
+    # ports:
+    #   - 127.0.0.1:3306:3306
     volumes:
       - db_volume:/config
     restart: unless-stopped
@@ -40,3 +43,7 @@ volumes:
 
 networks:
   network_app:
+    # ipam:
+    #   driver: default
+    #   config:
+    #   - subnet: 10.50.2.0/24
