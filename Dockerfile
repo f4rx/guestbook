@@ -19,10 +19,11 @@ RUN export PATH=/usr/local/lib/nodejs/node-v12.13.0-linux-x64/bin:$PATH && \
     npm install && \
     ng build
 
+
 FROM ubuntu:18.04
 COPY --from=front /frontend/dist/workshop/ /front
 
-MAINTAINER nortlite <zubov@selectel.ru>
+LABEL maintainer='nortlite <zubov@selectel.ru>'
 
 RUN apt-get update && apt-get install python3-pip libev-dev locales -y
 RUN pip3 install flask bjoern sqlalchemy sqlalchemy_utils pymysql pytest
