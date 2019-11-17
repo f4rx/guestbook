@@ -1,6 +1,9 @@
-Для просмотра описания функционала приложения воспользуйтесь [ссылкой на задачу в jira](https://jira.selectel.org/browse/OPENSTACK-5250?focusedCommentId=425322&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#comment-425322).<br>
-Для запуска приложения необходимо выполнить команду
-`docker-compose up`
-в директории с приложением.<br>
-Приложение запускается на `localhost:5000`.
+# GuestBook
 
+![](2019-11-18-00-37-30.png)
+
+Демонстрационноное приложение с бекендом на питоне (DB + RestAPI) и фронтенд на ангуляре.
+
+Запуск: `docker-compose up`, приложение доступно по адресу http://127.0.0.1:80 (и 127.0.0.1:5000 отдельно для разработки)
+
+DockerHub: https://hub.docker.com/u/f3ex/
