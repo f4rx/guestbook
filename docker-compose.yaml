@@ -13,10 +13,9 @@ services:
       APP_ADDRESS: 0.0.0.0
     ports:
       - 127.0.0.1:5000:5000
-      - 127.0.0.1:80:80
+      - 80:80
     networks:
       network_app:
-        # ipv4_address: 10.50.2.10
     depends_on:
       - db
 
@@ -44,6 +43,3 @@ networks:
   network_app:
     ipam:
       driver: default
-      # config:
-      # - subnet: 10.50.2.0/24
-      #   gateway: 10.50.2.1
