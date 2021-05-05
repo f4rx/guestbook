@@ -2,7 +2,6 @@
 """
 This module implements the definition of web service routes.
 """
-import os
 import json
 from flask import request, Response
 import werkzeug.exceptions
@@ -66,7 +65,7 @@ def not_found(error: werkzeug.exceptions.NotFound) -> Response:
 
 @app.errorhandler(405)
 def not_allowed(error: werkzeug.exceptions.MethodNotAllowed) -> Response:
-    resp = dict(status=1, message='Bad request. Method not allowed.', result=[],
-                host_name=CUR_ADDR)
+    resp = dict(status=1, message='Bad request. Method not allowed.',
+                result=[], host_name=CUR_ADDR)
     return Response(json.dumps(resp), content_type='application/json',
                     mimetype='application/json')

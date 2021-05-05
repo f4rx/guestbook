@@ -16,7 +16,7 @@ def get_cur_addr() -> str:
     try:
         sock.connect(('10.255.255.255', 1))
         addr = sock.getsockname()[0]
-    except:
+    except Exception:
         addr = '127.0.0.1'
     sock.close()
     return addr
@@ -24,5 +24,4 @@ def get_cur_addr() -> str:
 
 CUR_ADDR = get_cur_addr()
 
-from guest_book import routes
-
+from guest_book import routes  # noqa E402
