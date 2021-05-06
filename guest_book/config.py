@@ -4,6 +4,7 @@ service.
 """
 import os
 
+
 class Config(object):
     """This class defines the basic configurations of a web service.
     """

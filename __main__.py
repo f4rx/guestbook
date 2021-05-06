@@ -5,8 +5,11 @@ The module that runs the program.
 import time
 import sys
 import sqlalchemy.exc
+import bjoern
+
 CONNECTION_TRY_LIMIT = 7
 CONNECTION_RETRY_TIME_LIMIT = 5
+
 while True:
     try:
         from guest_book import app
@@ -18,6 +21,10 @@ while True:
         print('Waiting for connection...')
         CONNECTION_TRY_LIMIT -= 1
         time.sleep(CONNECTION_RETRY_TIME_LIMIT)
-import bjoern
 
-bjoern.run(app, host=app.config["APP_ADDRESS"], port=int(app.config["APP_PORT"]))
+
+bjoern.run(
+    app,
+    host=app.config["APP_ADDRESS"],
+    port=int(app.config["APP_PORT"]),
+)

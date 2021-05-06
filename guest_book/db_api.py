@@ -2,7 +2,6 @@
 """
 This module contains the functionality of accessing the database.
 """
-import os
 import time
 import json
 import sqlalchemy
@@ -11,7 +10,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import String, Column, DateTime, Unicode
 from sqlalchemy_utils import database_exists, create_database
 from sqlalchemy.orm import sessionmaker
-from guest_book import config, app, CUR_ADDR
+from guest_book import app, CUR_ADDR
 
 
 Base = declarative_base()
