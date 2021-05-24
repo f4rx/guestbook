@@ -20,6 +20,10 @@ conn_string = (f'mysql+pymysql://'
                f'{app.config["DB_ADDRESS"]}/'
                f'{app.config["DB_NAME"]}'
                f'?charset=utf8')
+
+if app.config["DB_SOCKET"]:
+    conn_string += f'&unix_socket={app.config["DB_SOCKET"]}'
+
 engine = sqlalchemy.create_engine(conn_string, echo=True)
 if not database_exists(engine.url):
     create_database(engine.url)
