@@ -15,4 +15,3 @@ class Config(object):
     DB_NAME = os.environ.get('MYSQL_DATABASE', 'guest_book')
     APP_PORT = os.environ.get('GUESTBOOKAPP_PORT', 5000)
     APP_ADDRESS = os.environ.get('APP_ADDRESS', '127.0.0.1')
-
